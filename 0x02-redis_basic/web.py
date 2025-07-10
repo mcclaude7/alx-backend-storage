@@ -19,13 +19,11 @@ def count_access(method: Callable) -> Callable:
     Decorator to count how many times a URL is accessed.
     It increments the key 'count:{url}' in Redis.
     """
-
     @wraps(method)
     def wrapper(url: str) -> str:
         count_key = f"count:{url}"
         r.incr(count_key)
         return method(url)
-
     return wrapper
 
 
@@ -34,7 +32,6 @@ def cache_result(method: Callable) -> Callable:
     Decorator to cache the HTML result of a URL for 10 seconds.
     If the URL is already cached, returns the cached content.
     """
-
     @wraps(method)
     def wrapper(url: str) -> str:
         cached_html = r.get(url)
@@ -44,7 +41,6 @@ def cache_result(method: Callable) -> Callable:
         result = method(url)
         r.setex(url, 10, result)  # Cache with a TTL of 10 seconds
         return result
-
     return wrapper
 
 
