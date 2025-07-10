@@ -24,6 +24,7 @@ def count_access(method: Callable) -> Callable:
         count_key = f"count:{url}"
         r.incr(count_key)
         return method(url)
+
     return wrapper
 
 
@@ -41,6 +42,7 @@ def cache_result(method: Callable) -> Callable:
         result = method(url)
         r.setex(url, 10, result)  # Cache with a TTL of 10 seconds
         return result
+
     return wrapper
 
 
