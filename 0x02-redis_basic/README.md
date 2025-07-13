@@ -1,4 +1,4 @@
-# 0x02. Redis basic
+e# 0x02. Redis basic
 
 ## Description
 
